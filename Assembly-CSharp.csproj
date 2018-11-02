@@ -65,11 +65,11 @@
     <Compile Include="Assets\Scripts\AnimationController.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\EnemyScript.cs" />
-    <Compile Include="Assets\Scripts\PlayerCombat.cs" />
-    <Compile Include="Assets\Scripts\PlayerHitDash.cs" />
-    <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\SoundController.cs" />
-    <Compile Include="Assets\Scripts\ThirdPersonCamScript.cs" />
+    <Compile Include="Assets\Scripts\Unused Scripts\PlayerCombat.cs" />
+    <Compile Include="Assets\Scripts\Unused Scripts\PlayerHitDash.cs" />
+    <Compile Include="Assets\Scripts\Unused Scripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\Unused Scripts\ThirdPersonCamScript.cs" />
     <Compile Include="Assets\Scripts\UserInput.cs" />
     <None Include="Assets\_Creepy_Cat\_3D Scifi Kit Starter Kit\_Docs\Doc.txt" />
     <Reference Include="UnityEditor.StandardEvents">
