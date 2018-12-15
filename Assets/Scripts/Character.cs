@@ -16,7 +16,11 @@ public class Character : MonoBehaviour
     public AudioClip _hitAudio;
     [SerializeField] Transform Enemy;
     [SerializeField] float speed;
-    [SerializeField] GameObject rightHandHitBox, leftHandHitBox;
+    [SerializeField] GameObject rightHandHitBox, leftHandHitBox, footHitBox;
+    public Transform rightHandObj;
+    public Transform lookObj;
+    public Transform footObj;
+    public Rigidbody barrelRb;
     //private float _forward, _sideWalk;
 
     private void Start()
@@ -41,11 +45,17 @@ public class Character : MonoBehaviour
         transform.LookAt(Enemy);
         anim.SetBool("Blocking", _isBlocking);
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             anim.SetTrigger("Punch 1");
             leftHandHitBox.SetActive(true);
+            //Vector3.MoveTowards(transform.position, Enemy.position, 10000);
             transform.Translate(0.0f, 0.0f, 0.0f);
+            transform.position = transform.forward * 10;
+            /*anim.SetLookAtWeight(1);
+            anim.SetLookAtPosition(lookObj.position);
+            anim.SetIKPosition(AvatarIKGoal.RightHand, rightHandObj.position);
+            anim.SetIKRotation(AvatarIKGoal.RightHand, rightHandObj.rotation);*/
         }
 
         if(Input.GetMouseButton(1))
@@ -63,6 +73,18 @@ public class Character : MonoBehaviour
             anim.SetTrigger("pKO");
         }
 
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            anim.SetTrigger("Kick");
+            footObj.LookAt(Enemy);
+            Vector3.MoveTowards(footObj.position, Enemy.position, 5);
+            footHitBox.SetActive(true);
+            /*anim.SetLookAtWeight(1);
+            anim.SetLookAtPosition(lookObj.position);
+            anim.SetIKPosition(AvatarIKGoal.RightHand, footObj.position);
+            anim.SetIKRotation(AvatarIKGoal.RightHand, footObj.rotation);*/
+        }
+
        
     }
 
@@ -75,6 +97,7 @@ public class Character : MonoBehaviour
     {
         rightHandHitBox.SetActive(false);
         leftHandHitBox.SetActive(false);
+        footHitBox.SetActive(false);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -93,6 +116,11 @@ public class Character : MonoBehaviour
         {
             _handAudioSource.clip = _hitAudio;
             _handAudioSource.Play();
+            
+        }
+
+        if(collision.gameObject.name == "Barrel")
+        {
             
         }
     }

@@ -2,30 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class EnemyScript : MonoBehaviour {
 
     private Animator anim;
     public Transform Player;
-    public float punchCD;
+    public float punchCD, groundTime;
     public float enemyMaxHP, enemyCurrentHP;
-    private bool _punch;
-    public GameObject leftHandHitBox;
+    [SerializeField] bool _punch, onGround;
+    [SerializeField] GameObject leftHandHitBox, playerLeftHandHitBox, playerRightHandHitBox, playerFootHitbox;
     public AudioSource _handAudioSource;
     public AudioClip _hitAudio;
     public Slider enemyHealthBar;
 
-	// Use this for initialization
-	void Start () {
+    NavMeshAgent navMesh;
+
+    // Use this for initialization
+    void Start () {
         anim = GetComponent<Animator>();
         //transform.LookAt()
         enemyHealthBar.value = EnemyHealthCalculation();
         enemyCurrentHP = enemyMaxHP;
+        navMesh = GetComponent<NavMeshAgent>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
         transform.LookAt(Player);
+
+        float dist = Vector3.Distance(transform.position, Player.transform.position);
+
+        if(dist <= 5000)
+        {
+            navMesh.SetDestination(Player.transform.position);
+        }
 
         if(enemyCurrentHP <= 0)
         {
@@ -50,8 +61,23 @@ public class EnemyScript : MonoBehaviour {
             leftHandHitBox.SetActive(true);
             
         }
-        
-	}
+        if (onGround == true)
+        {
+            groundTime -= Time.deltaTime;
+        }
+
+        if (groundTime <= 0)
+        {
+            onGround = false;
+        }
+
+        if (onGround == false && groundTime <= 0)
+        {
+            anim.SetTrigger("Stand");
+            groundTime = 1;
+        }
+
+    }
 
     float EnemyHealthCalculation()
     {
@@ -60,7 +86,7 @@ public class EnemyScript : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Player" )
+        if(collision.gameObject.tag == "PlayerHand" )
         {
             Debug.Log("hit");
             anim.SetTrigger("EnemyHit");
@@ -68,9 +94,17 @@ public class EnemyScript : MonoBehaviour {
             enemyHealthBar.value = EnemyHealthCalculation();
             _handAudioSource.clip = _hitAudio;
             _handAudioSource.Play();
+            playerFootHitbox.SetActive(false);
+            playerLeftHandHitBox.SetActive(false);
+            playerRightHandHitBox.SetActive(false);
             
         }
-        
+
+        if(collision.gameObject.name == "Barrel")
+        {
+            anim.SetTrigger("KO");
+            onGround = true;
+        }
     }
 
     public void HitBoxOff()
