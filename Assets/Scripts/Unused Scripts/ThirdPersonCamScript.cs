@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ThirdPersonCamScript : MonoBehaviour {
 
-    private const float Y_ANGLE_MIN = -50.0f;
-    private const float Y_ANGLE_MAX = 50.0f;
+    private const float Y_ANGLE_MIN = -1.0f;
+    private const float Y_ANGLE_MAX = 1.0f;
 
     public Transform lookAt, camTransform, Enemy;
 
@@ -21,20 +21,21 @@ public class ThirdPersonCamScript : MonoBehaviour {
         
     }
 
-    /*private void Update()
+    private void Update()
     {
         currentX += (Input.GetAxis("Mouse X") * sensitivityX);
         currentY += (Input.GetAxis("Mouse Y") * sensitivityY);
 
         currentY = Mathf.Clamp(currentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
-    }*/
+    }
+    
 
     private void LateUpdate()
     {
         Vector3 dir = new Vector3(0, height, - distance);
         Quaternion rotation = Quaternion.Euler(currentY, currentX, 0);
-        camTransform.position = lookAt.position + dir;
-        camTransform.LookAt(lookAt.position);
+        //camTransform.position = lookAt.position + dir;
+        //camTransform.LookAt(lookAt.position);
 
         /*if(GetComponent<PlayerMovement>()._lockedOn == true)
         {

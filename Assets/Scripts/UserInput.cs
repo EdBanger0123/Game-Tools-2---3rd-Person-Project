@@ -6,11 +6,11 @@ public class UserInput : MonoBehaviour {
 
     private float _forward, _sideWalk;
     public float speed;
-    private Character _character;
+    private CharacterFistOnly _character;
 
 	// Use this for initialization
 	void Start () {
-        _character = GetComponent<Character>();
+        _character = GetComponent<CharacterFistOnly>();
 	}
 	
 	// Update is called once per frame
