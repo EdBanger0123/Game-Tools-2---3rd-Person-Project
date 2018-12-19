@@ -180,7 +180,7 @@ public class EnemyScript : MonoBehaviour {
             
         }
 
-        if(collision.gameObject.name == "Barrel" && beenHit == true)
+        if(collision.gameObject.tag == "Barrel" && beenHit == false)
         {
             beenHit = true;
             _enemyAudioSource.clip = _hitAudio;

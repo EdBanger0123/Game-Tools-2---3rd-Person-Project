@@ -117,7 +117,6 @@
     <Compile Include="Assets\Imported Stuff\Standard Assets\Cameras\AbstractTargetFollower.cs" />
     <Compile Include="Assets\Imported Stuff\Standard Assets\Cameras\PivotBasedCameraRig.cs" />
     <Compile Include="Assets\Imported Stuff\Standard Assets\Cameras\Scripts\AutoCam.cs" />
-    <Compile Include="Assets\Inverse Kinematics\Scripts\InverseKinematics.cs" />
     <Compile Include="Assets\Scripts\BarrelScript.cs" />
     <Compile Include="Assets\Scripts\CameraScript.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
